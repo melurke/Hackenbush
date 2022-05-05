@@ -35,15 +35,16 @@ while not end_game:
     plt.show()
     
     edge = (int(input("What should the first point of the edge be? ")), int(input("What should the second point of the edge be? ")))
-    new_edges = functions.turn(G.edges(), edge)
+    
     try:
+        new_edges = functions.turn(G.edges(), edge)
         G.clear()
         G.add_node(0)
         G.add_edges_from(new_edges)
         player += 1
     except:
         end_game = True
-        
+
 print("")
 
 if player % 2 == 0:
