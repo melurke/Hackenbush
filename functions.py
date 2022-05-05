@@ -27,10 +27,7 @@ def fall_nodes(nodes, G):
 def turn(edges, edge):
     G = nx.MultiGraph()
     edges = list(edges)
-    try:
-        edges.remove(edge)
-    except:
-        pass
+    edges.remove(edge)
     G.add_edges_from(edges)
     G.remove_edges_from(fall(G.edges(), G))
     G.remove_nodes_from(fall_nodes(G.nodes(), G))
