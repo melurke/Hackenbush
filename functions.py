@@ -1,4 +1,3 @@
-import ast
 import networkx as nx
 
 pos = {
@@ -12,6 +11,7 @@ def mex(K):
 
 def fall(edges, G):
     falling = []
+
     for edge in edges:
         if not nx.has_path(G, 0, edge[0]):
             falling.append(edge)
@@ -25,9 +25,13 @@ def fall_nodes(nodes, G):
     return falling
 
 def turn(edges, edge):
-    G = nx.Graph()
+    G = nx.MultiGraph()
+    edges = list(edges)
+    try:
+        edges.remove(edge)
+    except:
+        pass
     G.add_edges_from(edges)
-    G.remove_edge(edge[0], edge[1])
     G.remove_edges_from(fall(G.edges(), G))
     G.remove_nodes_from(fall_nodes(G.nodes(), G))
     return list(G.edges())
@@ -38,7 +42,3 @@ def followers(G):
     for edge in G.edges():
         edges = test.copy()
         next.append(turn(edges, edge))
-
-G = nx.Graph()
-G.add_edges_from([(0, 1), (0, 2), (1, 2)])
-print(followers(G))
