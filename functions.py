@@ -13,19 +13,19 @@ def fall(edges, G):
     falling = []
 
     for edge in edges:
-        if not nx.has_path(G, 0, edge[0]):
+        if not nx.has_path(G, 0, edge[0]) and not nx.has_path(G, edge[0], 0) and not nx.has_path(G, 0, edge[1]) and not nx.has_path(G, edge[1], 0):
             falling.append(edge)
     return falling
 
 def fall_nodes(nodes, G):
     falling = []
     for node in nodes:
-        if not nx.has_path(G, node, 0):
+        if not nx.has_path(G, 0, node) and not nx.has_path(G, node, 0):
             falling.append(node)
     return falling
 
 def turn(edges, edge):
-    G = nx.MultiGraph()
+    G = nx.MultiDiGraph()
     edges = list(edges)
     edges.remove(edge)
     G.add_edges_from(edges)
@@ -39,3 +39,11 @@ def followers(G):
     for edge in G.edges():
         edges = test.copy()
         next.append(turn(edges, edge))
+
+def double_edges(edges):
+    for edge in edges:
+        e = edges.copy()
+        e.remove(edge)
+        if edge in e:
+            edges[edges.index(edge)] = (edge[1], edge[0])
+    return edges
