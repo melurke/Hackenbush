@@ -45,5 +45,6 @@ def double_edges(edges):
         e = edges.copy()
         e.remove(edge)
         if edge in e:
-            edges[edges.index(edge)] = (edge[1], edge[0])
+            edges.remove(edge)
+            edges.append((edge[1], edge[0]))
     return edges
