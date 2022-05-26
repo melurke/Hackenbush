@@ -1,8 +1,10 @@
 import networkx as nx
-import functions
+import functions as f
 
 G = nx.Graph()
-G.add_nodes_from([0, 1, 2])
-G.add_edges_from([(0, 1), (0, 2)])
+edges = []
+G.add_edges_from(edges)
+G.remove_edges_from(f.fall(G.edges(), G))
 
-print(functions.g(G))
+position_value = f.value(list(G.edges()))
+print(position_value)
